@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: cart-service
+  redis:
+    host: localhost
+    port: 6379
+    url: http://localhost:6379
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+    consumer:
+      bootstrap-servers: localhost:29092
+      group-id: add-cart
+      properties:
+        spring:
+          deserializer:
+            key:
+              trusted:
+                packages: "*"
+            value:
+              trusted:
+                packages: "*"
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 9006
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true

@@ -26,6 +26,13 @@ spring:
          uri: lb://USER-SERVICE
          predicates:
            - Path=/api/v1/users/**
+
+       - id: product-service
+         uri: lb://PRODUCT-SERVICE
+         predicates:
+           - Path=/product/**
+         filters:
+           - AuthenticationFilter
  application:
    name: SWIGGY-GATEWAY
 

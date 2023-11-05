@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: mail-service
+server:
+  port: 9008
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
