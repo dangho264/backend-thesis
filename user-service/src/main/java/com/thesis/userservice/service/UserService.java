@@ -10,6 +10,8 @@ import com.thesis.userservice.repository.UserRepository;
 import com.thesis.userservice.mappers.UserMapper;
 import com.thesis.userservice.repository.ViolateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -104,5 +106,9 @@ public class UserService {
             violateList.add(violate);
             user.setViolates(violateList);
         }
+    }
+    public Page<User> getUserByRole(int id, Pageable pageable){
+        Optional<Role> role = roleRepository.findById(id);
+        return userRepository.findAllByRole(role.get(),pageable);
     }
 }

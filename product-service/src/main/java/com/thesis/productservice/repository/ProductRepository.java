@@ -16,6 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 //    List<Product> findTop5NewestProducts();
     List<Product> findTop5ByOrderByProductId();
     Page<Product> findAll(Pageable pageable);
-//    List<Product> findAllByOrdOrderByPriceDesc();
-//    List<Product> findAllByOrdOrderByPriceAsc();
+//    List<Product> findProductBySellerName(String name);
+    Page<Product> findProductBySellerName(String name, Pageable pageable);
+
 }

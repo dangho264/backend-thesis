@@ -1,11 +1,10 @@
 package com.thesis.productservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,8 +18,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,12 +47,15 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private TypeProduct type;
-    @OneToMany(mappedBy = "product")
-    @JsonBackReference
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.ALL})
+//    @JsonBackReference
     private Set<Artist> artists = new HashSet<>();
     @OneToMany(mappedBy = "product")
-    @JsonBackReference
+    @JsonManagedReference
     private Set<Image> images = new HashSet<>();
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private DetailProduct detailProduct;
     public String getFormattedPrice() {
         DecimalFormat format = new DecimalFormat("#,###.##");
         return format.format(price);

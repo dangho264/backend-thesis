@@ -1,5 +1,6 @@
 package com.thesis.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public class Role {
   private Integer id;
 
   private String name;
-
+  @JsonBackReference
   @ManyToMany(mappedBy = "roles")
   private List<User> users = new ArrayList<>();
 }

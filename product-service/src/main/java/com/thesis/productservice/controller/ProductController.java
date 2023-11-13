@@ -27,35 +27,54 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @PostMapping("/add-product")
-    public ResponseEntity<Long> addProduct(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<Long> addProduct(@RequestBody ProductDTO productDTO) {
         long productId = productService.addProduct(productDTO);
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
     }
+
     @PutMapping("/update-product")
-    public ResponseEntity<Long> updateProduct(@RequestBody ProductPutDTO productDTO){
+    public ResponseEntity<Long> updateProduct(@RequestBody ProductPutDTO productDTO) {
         long productId = productService.updateProduct(productDTO);
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
     }
+
     @GetMapping
-    public List<Product> getProduct(){
+    public List<Product> getProduct() {
         return productService.getListProduct();
     }
+
+    @GetMapping("/ToCheck")
+    public List<Product> getProduct_ToCheck() {
+        return productService.getListProduct_ToCheck();
+    }
+
     @GetMapping("/newArrival")
-    public List<Product> getNewArrivalProduct(){
+    public List<Product> getNewArrivalProduct() {
         return productService.findTop5NewestProducts();
     }
+
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable() int id){
+    public Product getProductById(@PathVariable() int id) {
         return productService.findById(id);
     }
+
     @GetMapping("/isExist/{id}")
-    public Boolean checkExistProduct(@PathVariable int id){
+    public Boolean checkExistProduct(@PathVariable int id) {
         return productService.isExistProduct(id);
     }
+
     @GetMapping("page")
-    public Page<Product> getProductByPage(@RequestParam(name="page") int page,
-                                          @RequestParam(name="size") int size){
-        Pageable pageable = PageRequest.of(page,size);
+    public Page<Product> getProductByPage(@RequestParam(name = "page") int page,
+                                          @RequestParam(name = "size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         return productRepository.findAll(pageable);
+    }
+    @GetMapping("/page-seller")
+
+    public Page<Product> getProductPagingOfSeller(@RequestParam(name = "page") int page,
+                                                  @RequestParam(name = "size") int size,
+                                                  @RequestParam(name = "sellerName") String sellerName) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findProductBySellerName(sellerName,pageable);
     }
 }

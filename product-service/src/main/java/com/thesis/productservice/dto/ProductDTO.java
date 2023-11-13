@@ -3,6 +3,7 @@ package com.thesis.productservice.dto;
 import com.thesis.productservice.entity.Artist;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class ProductDTO {
     private int quantity;
     private int category_id;
     private int typeproduct_id;
+    private String released;
+    private float weight;
+    private String dimensions;
     Set<String> artistName = new HashSet<>();
     public String getFormattedPrice() {
         DecimalFormat format = new DecimalFormat("#,###.##");

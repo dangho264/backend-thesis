@@ -3,14 +3,8 @@ package com.thesis.productservice.service;
 import com.thesis.productservice.dto.AppException;
 import com.thesis.productservice.dto.ProductDTO;
 import com.thesis.productservice.dto.ProductPutDTO;
-import com.thesis.productservice.entity.Artist;
-import com.thesis.productservice.entity.Category;
-import com.thesis.productservice.entity.Price;
-import com.thesis.productservice.entity.Product;
-import com.thesis.productservice.repository.ArtistRepository;
-import com.thesis.productservice.repository.CategoryRepository;
-import com.thesis.productservice.repository.PriceRepository;
-import com.thesis.productservice.repository.ProductRepository;
+import com.thesis.productservice.entity.*;
+import com.thesis.productservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,6 +23,8 @@ public class ProductService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private DetailPDRepository detailPDRepository;
     public List<Product> findTop5NewestProducts(){
         return productRepository.findTop5ByOrderByProductId();
     }
@@ -62,18 +58,30 @@ public class ProductService {
         price.setPrice(product.getPrice());
         price.setTimestamp(LocalDateTime.now());
         priceRepository.save(price);
+        productRepository.save(product);
         Set<Artist> artists = new HashSet<>();
         for(String artistName : productDTO.getArtistName()){
-            Artist artist = new Artist();
-            if(artistRepository.existsByArtistName(artistName)) {
+            if(!artistRepository.existsByArtistName(artistName)) {
+                Artist artist = new Artist();
                 artist.setProduct(product);
                 artist.setArtistName(artistName);
                 artistRepository.save(artist);
                 artists.add(artist);
             }
+            else{
+                Artist artist = artistRepository.findByArtistName(artistName);
+                artist.setProduct(product);
+                artists.add(artist);
+            }
         }
         product.setArtists(artists);
-        productRepository.save(product);
+        DetailProduct detailProduct = new DetailProduct();
+        detailProduct.setDimensions(productDTO.getDimensions());
+        detailProduct.setWeight(productDTO.getWeight());
+        detailProduct.setReleased(productDTO.getReleased());
+        detailProduct.setProduct(product);
+        detailPDRepository.save(detailProduct);
+        product.setDetailProduct(detailProduct);
         return product.getProductId();
     }
     public long updateProduct(ProductPutDTO productDTO) {
@@ -107,18 +115,23 @@ public class ProductService {
             price.setPrice(product.getPrice());
             price.setTimestamp(LocalDateTime.now());
             priceRepository.save(price);
+            productRepository.save(product);
             Set<Artist> artists = new HashSet<>();
-            for (String artistName : productDTO.getArtistName()) {
-                Artist artist = new Artist();
-                if (artistRepository.existsByArtistName(artistName)) {
+            for(String artistName : productDTO.getArtistName()){
+                if(!artistRepository.existsByArtistName(artistName)) {
+                    Artist artist = new Artist();
                     artist.setProduct(product);
                     artist.setArtistName(artistName);
                     artistRepository.save(artist);
                     artists.add(artist);
                 }
+                else{
+                    Artist artist = artistRepository.findByArtistName(artistName);
+                    artist.setProduct(product);
+                    artists.add(artist);
+                }
             }
             product.setArtists(artists);
-            productRepository.save(product);
         }
         return product.getProductId();
     }
@@ -154,10 +167,20 @@ public class ProductService {
         }
         return products;
     }
+    public List<Product> getListProduct_ToCheck(){
+        List<Product> productFindAll = productRepository.findAll();
+        List<Product> products = new ArrayList<>();
+        for(Product product : productFindAll){
+            if(!product.isStatus()){
+                products.add(product);
+            }
+        }
+        return products;
+    }
+
     public Product findById(int id){
         return productRepository.findById(id);
     }
-
     public Boolean isExistProduct(int id){
         return productRepository.existsById(id);
     }

@@ -1,6 +1,7 @@
 package com.thesis.userservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,12 +44,12 @@ public class User {
     private String storeName;
     @Column(name="createdAt")
     private LocalDateTime createdAt;
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name ="User_Role", joinColumns = @JoinColumn(name="id_User"), inverseJoinColumns = @JoinColumn(name="ID_Role"))
     private List<Role> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Violate> violates = new ArrayList<>();
-
 
   // getters và setters
 }

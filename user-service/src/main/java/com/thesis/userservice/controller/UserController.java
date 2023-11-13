@@ -12,6 +12,9 @@ import com.thesis.userservice.repository.UserRepository;
 import com.thesis.userservice.service.JwtService;
 import com.thesis.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,5 +83,12 @@ public class UserController {
   public String validateToken(@RequestParam("token") String token) {
     jwtService.validateToken(token);
     return "Token is valid";
+  }
+  @GetMapping("/role")
+  public Page<User> getUserByRole(@RequestParam(name = "page") int page,
+                                     @RequestParam(name = "size") int size,
+                                     @RequestParam("role") int id) {
+    Pageable pageable = PageRequest.of(page, size);
+    return userService.getUserByRole(id,pageable);
   }
 }
