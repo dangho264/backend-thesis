@@ -48,6 +48,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name ="User_Role", joinColumns = @JoinColumn(name="id_User"), inverseJoinColumns = @JoinColumn(name="ID_Role"))
     private List<Role> roles = new ArrayList<>();
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Violate> violates = new ArrayList<>();
 

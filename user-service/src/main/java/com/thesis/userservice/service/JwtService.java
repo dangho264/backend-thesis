@@ -6,10 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -22,20 +18,20 @@ public class JwtService {
   public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
 
-  public Authentication validateToken(final String token) {
-    try {
-      // Kiểm tra và giải mã JWT ở đây
-      Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
-      // Nếu hợp lệ, trả về đối tượng Authentication
-      // Ở đây, bạn có thể tạo một đối tượng Authentication từ claims
-      // Ví dụ:
-      String username = claims.getBody().getSubject();
-      return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
-    } catch (Exception e) {
-      // Xử lý lỗi hoặc ném ngoại lệ nếu mã JWT không hợp lệ
-      throw new BadCredentialsException("Invalid token");
-    }
-  }
+//  public Authentication validateToken(final String token) {
+//    try {
+//      // Kiểm tra và giải mã JWT ở đây
+//      Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+//      // Nếu hợp lệ, trả về đối tượng Authentication
+//      // Ở đây, bạn có thể tạo một đối tượng Authentication từ claims
+//      // Ví dụ:
+//      String username = claims.getBody().getSubject();
+//      return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+//    } catch (Exception e) {
+//      // Xử lý lỗi hoặc ném ngoại lệ nếu mã JWT không hợp lệ
+//      throw new BadCredentialsException("Invalid token");
+//    }
+//  }
 
   public String generateToken(String userName) {
     Map<String, Object> claims = new HashMap<>();

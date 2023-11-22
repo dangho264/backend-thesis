@@ -11,9 +11,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class PromotionDTO {
-    private String Description;
+    private String description;
     private String couponCode;
-    private float couponPercent;
+    private double couponPercent;
     private Date startDate;
     private Date endDate;
+    private String sellerName;
+
 }

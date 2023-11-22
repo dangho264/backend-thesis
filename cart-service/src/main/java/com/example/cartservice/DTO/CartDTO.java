@@ -18,4 +18,5 @@ public class CartDTO {
     private int productId;
     private String image_url;
     private BigDecimal price;
+    private boolean isSelected;
 }

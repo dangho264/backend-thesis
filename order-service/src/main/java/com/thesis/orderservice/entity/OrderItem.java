@@ -20,9 +20,10 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productId;
-    private String productName;
+    private String name;
     private String sellername;
     private int quantity;
+    private String image_url;
     private BigDecimal price;
     private String note;
     private BigDecimal discountAmount;

@@ -17,6 +17,11 @@ public class UserMapper {
             .password(user.getPassword())
             .roles(user.getRoles())
             .role(user.getRoles().get(0).getName())
+            .storeName(user.getStoreName())
+            .createdAt(user.getCreatedAt())
+            .email(user.getEmail())
+            .phonenumber(user.getPhoneNumber())
+            .isActive(user.isActive())
             .build();
     return userDto;
   }

@@ -8,20 +8,16 @@ spring:
            - Path=/swiggy/**
          filters:
            - AuthenticationFilter
-
-
        - id: restaurant-service
          uri: lb://RESTAURANT-SERVICE
          predicates:
            - Path=/restaurant/**
          filters:
            - AuthenticationFilter
-
        - id: identity-service
          uri: lb://IDENTITY-SERVICE
          predicates:
            - Path=/auth/**
-
        - id: user-service
          uri: lb://USER-SERVICE
          predicates:
@@ -33,10 +29,34 @@ spring:
            - Path=/product/**
          filters:
            - AuthenticationFilter
+       - id: cart-service
+         uri: lb://CART-SERVICE
+         predicates:
+           - Path=/cart/**
+         filters:
+           - AuthenticationFilter
+       - id: mail-service
+         uri: lb://MAIL-SERVICE
+         predicates:
+           - Path=/mail/**
+         filters:
+           - AuthenticationFilter
+       - id: order-service
+         uri: lb://ORDER-SERVICE
+         predicates:
+           - Path=/order/**
+         filters:
+           - AuthenticationFilter
+       - id: review-product-service
+         uri: lb://REVIEW-PRODUCT-SERVICE
+         predicates:
+           - Path=/review/**
+         filters:
+           - AuthenticationFilter
  application:
    name: SWIGGY-GATEWAY
 
 eureka:
   client:
     service-url:
-      defaultZone : http://localhost:8761/eureka/
+      defaultZone : http://${EUREKA_SERVICE_URL:192.168.1.138}:8761/eureka/

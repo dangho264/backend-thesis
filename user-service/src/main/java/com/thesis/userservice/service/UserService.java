@@ -100,8 +100,10 @@ public class UserService {
         if(user.isActive()){
             user.setActive(false);
             Violate violate = new Violate();
+            violate.setUser(user);
+            violate.setViolate_reason(violateAccountDTO.getReason());
+            violate.setCreatedAt(LocalDateTime.now());
             violateRepository.save(violate);
-            violate.setViolate_reason(violate.getViolate_reason());
             List<Violate> violateList = new ArrayList<>();
             violateList.add(violate);
             user.setViolates(violateList);

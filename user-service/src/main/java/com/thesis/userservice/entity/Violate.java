@@ -1,12 +1,14 @@
 package com.thesis.userservice.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +23,9 @@ public class Violate {
     private Integer id;
     @Column
     private String violate_reason;
+    @Column
+    private LocalDateTime createdAt;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_User")
     private User user;

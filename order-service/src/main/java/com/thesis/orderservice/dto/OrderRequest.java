@@ -25,6 +25,7 @@ public class OrderRequest {
 //    private String note;
 //    private float discount;
 //    private int numberItem;
+    private String paymentStatus;
 //    private String couponCode;
     private String orderStatus;
     private long paymentId;

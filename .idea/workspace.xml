@@ -4,38 +4,143 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="699f8792-1e55-4916-b12c-84667a09aea2" name="Changes" comment="add VNPAY to Order, Sender Email">
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/PromotionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/PromotionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/Promotion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/repository/PromotionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/service/PromotionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/DetailProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/repository/DetailPDRepository.java" afterDir="false" />
+    <list default="true" id="699f8792-1e55-4916-b12c-84667a09aea2" name="Changes" comment="Fix Artist-Product">
+      <change afterPath="$PROJECT_DIR$/Email-Service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Config/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Model/MailOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Model/MailOrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Service/ThymeleafService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Email-Service/src/main/resources/templates/mail-template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Review-Product-Service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartItemGroupedBySellerDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartItemResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/MailOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/MailOrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/AppException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/util/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swiggy-gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swiggy-service-registry/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Controller/MailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Controller/MailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Service/MailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Service/MailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/target/classes/com/thesis/Email/Service/Controller/MailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/target/classes/com/thesis/Email/Service/Controller/MailController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email-Service/target/classes/com/thesis/Email/Service/Service/MailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Email-Service/target/classes/com/thesis/Email/Service/Service/MailService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Config/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Config/KafkaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/DTO/CartDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Entity/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Entity/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Entity/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Repository/CartItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Repository/CartItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Repository/CartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Repository/CartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Config/KafkaConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Config/KafkaConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Controller/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Controller/CartController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/DTO/CartDTO$CartDTOBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/DTO/CartDTO$CartDTOBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/DTO/CartDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/DTO/CartDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/Cart$CartBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/Cart$CartBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/Cart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/CartItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Entity/CartItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Repository/CartItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Repository/CartItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Service/CartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/cart-service/target/classes/com/example/cartservice/Service/CartService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/config/VNPayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/config/VNPayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/PromotionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/controller/PromotionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/OrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/OrderRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/PromotionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/dto/PromotionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/Promotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/entity/Promotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/repository/PromotionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/repository/PromotionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/service/PromotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/thesis/orderservice/service/PromotionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/config/AppConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/config/AppConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/config/VNPayConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/config/VNPayConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/controller/PaymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/dto/OrderRequest$OrderRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/dto/OrderRequest$OrderRequestBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/dto/OrderRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/dto/OrderRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/Order$OrderBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/OrderItem$OrderItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/OrderItem$OrderItemBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/entity/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/thesis/orderservice/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/dto/ProductDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Artist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Image.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/entity/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/repository/ProductRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/controller/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/dto/ProductDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/dto/ProductDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Artist.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Artist.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Image.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Image.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product$ProductBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product$ProductBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/ProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/ProductServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/config/AppConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/controller/CategoryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/controller/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/dto/AppException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/dto/ProductDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/dto/ProductPutDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Artist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Category.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Image.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Price.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product$ProductBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/TypeProduct$TypeProductBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/entity/TypeProduct.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/ArtistRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/CategoryRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/PriceRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/repository/ProductRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/thesis/productservice/service/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/swiggy-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swiggy-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swiggy-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/swiggy-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swiggy-gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/swiggy-gateway/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swiggy-service-registry/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swiggy-service-registry/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/DTO/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/DTO/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/AuthenticationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/AuthenticationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/CORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/CORSFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/UserAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/UserAuthProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/UserAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/config/UserAuthenticationEntryPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/Violate.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/entity/Violate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/mappers/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/service/JwtService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/DTO/UserDto$UserDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/DTO/UserDto$UserDtoBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/DTO/UserDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/DTO/UserDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/AuthenticationConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/CORSFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/JwtAuthFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/UserAuthProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/UserAuthProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/config/UserAuthenticationEntryPoint.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/Violate$ViolateBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/Violate$ViolateBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/Violate.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/entity/Violate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/mappers/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/mappers/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/service/JwtService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/com/thesis/userservice/service/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,40 +182,45 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;add__vnpay,__sender__email&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Graduation thesis/jwt-apigateway-security-main/jwt-apigateway-security-main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.18181819&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;3d2c8e175976440fc62aa31517cadaec&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "add__vnpay,__sender__email",
+    "last_opened_file_path": "E:/Graduation thesis/jwt-apigateway-security-main/jwt-apigateway-security-main/user-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.18181819",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "spring.configuration.checksum": "3d2c8e175976440fc62aa31517cadaec",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.thesis.orderservice.dto" />
       <recent name="com.thesis.orderservice.entity" />
+      <recent name="com.thesis.orderservice.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main" />
+      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main\user-service" />
+      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main\swiggy-service-registry" />
+      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main\swiggy-gateway" />
+      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main\Review-Product-Service" />
+      <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main\product-service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Graduation thesis\jwt-apigateway-security-main\jwt-apigateway-security-main" />
@@ -124,7 +234,140 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.ProductServiceApplication">
+    <configuration name="cart-service-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/cart-service/target/cart-service-0.0.1-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cart-service [package]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map>
+                <entry key="SERVERHOST" value="localhost" />
+              </map>
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/cart-service" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="product-service [package]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map>
+                <entry key="EUREKA_URI" value="192.168.1.138" />
+              </map>
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/product-service" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="swiggy-gateway [package]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map>
+                <entry key="EUREKA_SERVICE_URL" value="192.168.1.138" />
+              </map>
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/swiggy-gateway" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="CartServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="SERVERHOST" value="192.168.1.138" />
+      </envs>
       <module name="cart-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.cartservice.CartServiceApplication" />
       <method v="2">
@@ -153,6 +396,9 @@
       </method>
     </configuration>
     <configuration name="ProductServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="EUREKA_URI" value="192.168.1.138" />
+      </envs>
       <module name="product-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.thesis.productservice.ProductServiceApplication" />
       <method v="2">
@@ -167,6 +413,9 @@
       </method>
     </configuration>
     <configuration name="SwiggyGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="EUREKA_SERVICE_URL" value="192.168.1.138" />
+      </envs>
       <module name="swiggy-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.javatechie.SwiggyGatewayApplication" />
       <method v="2">
@@ -194,12 +443,16 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JAR Application.cart-service-0.0.1-SNAPSHOT.jar" />
+      <item itemvalue="Maven.cart-service [package]" />
+      <item itemvalue="Maven.product-service [package]" />
+      <item itemvalue="Maven.swiggy-gateway [package]" />
       <item itemvalue="Spring Boot.EmailServiceApplication" />
+      <item itemvalue="Spring Boot.CartServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
       <item itemvalue="Spring Boot.IdentityServiceApplication" />
       <item itemvalue="Spring Boot.OrderServiceApplication" />
       <item itemvalue="Spring Boot.SwiggyGatewayApplication" />
-      <item itemvalue="Spring Boot.CartServiceApplication" />
-      <item itemvalue="Spring Boot.ProductServiceApplication" />
       <item itemvalue="Spring Boot.ReviewProductServiceApplication" />
       <item itemvalue="Spring Boot.SwiggyServiceRegistryApplication" />
       <item itemvalue="Spring Boot.UserServiceApplication" />
@@ -207,6 +460,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.UserServiceApplication" />
+        <item itemvalue="JAR Application.cart-service-0.0.1-SNAPSHOT.jar" />
       </list>
     </recent_temporary>
   </component>
@@ -267,6 +521,24 @@
       <workItem from="1699679766393" duration="2208000" />
       <workItem from="1699687494776" duration="7956000" />
       <workItem from="1699763503861" duration="3877000" />
+      <workItem from="1699845092393" duration="3705000" />
+      <workItem from="1699872236084" duration="8474000" />
+      <workItem from="1699946300015" duration="7668000" />
+      <workItem from="1700029091620" duration="3165000" />
+      <workItem from="1700048949762" duration="4513000" />
+      <workItem from="1700106796564" duration="4364000" />
+      <workItem from="1700131691628" duration="10952000" />
+      <workItem from="1700205067817" duration="14307000" />
+      <workItem from="1700283164437" duration="3977000" />
+      <workItem from="1700309934303" duration="6110000" />
+      <workItem from="1700460881970" duration="3543000" />
+      <workItem from="1700474558099" duration="15138000" />
+      <workItem from="1700493779920" duration="322000" />
+      <workItem from="1700530852635" duration="537000" />
+      <workItem from="1700543661512" duration="6244000" />
+      <workItem from="1700570887323" duration="7611000" />
+      <workItem from="1700620653180" duration="2799000" />
+      <workItem from="1700649087024" duration="16963000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1697035650361</created>
@@ -282,7 +554,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699184159306</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fix Artist-Product">
+      <created>1699845361794</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699845361794</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +578,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/add_vnpay,_sender_email" />
                       </list>
                     </value>
                   </entry>
@@ -314,29 +593,38 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="add VNPAY to Order, Sender Email" />
-    <option name="LAST_COMMIT_MESSAGE" value="add VNPAY to Order, Sender Email" />
+    <MESSAGE value="Fix Artist-Product" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Artist-Product" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/user-service/src/main/java/com/thesis/userservice/controller/UserController.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Email-Service/src/main/java/com/thesis/Email/Service/Controller/MailController.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/service/ProductService.java</url>
-          <line>30</line>
+          <line>31</line>
           <properties class="com.thesis.productservice.service.ProductService" method="addProduct">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/product-service/src/main/java/com/thesis/productservice/controller/ProductController.java</url>
+          <line>29</line>
+          <properties class="com.thesis.productservice.controller.ProductController" method="addProduct">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/cart-service/src/main/java/com/example/cartservice/Controller/CartController.java</url>
+          <line>41</line>
+          <properties class="com.example.cartservice.Controller.CartController" method="selectItem">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -19,7 +19,7 @@ public class MailController {
         mes+="Tổng tiền của đơn hàng: "+mailStructure.getTotalPrice();
         mes+="\n Trạng thái đơn hàng là" + mailStructure.getOrderStatus();
         mailStructure1.setMessage(mes);
-        mailService.sendMail(mail, mailStructure1);
+//        mailService.sendMail(mail, mailStructure1);
         return "Mail send successfully";
     }
 }

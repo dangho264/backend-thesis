@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/order/payment")
 @CrossOrigin
 public class PaymentController {
 

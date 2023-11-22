@@ -21,6 +21,7 @@ public interface CartItemRepository extends CrudRepository<CartItem, Long> {
 
     @Transactional
     void deleteByCartIdAndProductIdIn(Long cartId, List<Long> productIds);
+    public CartItem findCartItemByProductId(int productId);
 
 //    @Query("select sum(ci.quantity) from CartItem ci where ci.cart.id = ?1")
 //    Long countItemInCart(Long cartId);

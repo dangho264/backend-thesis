@@ -44,8 +44,10 @@ public class ProductController {
     }
 
     @GetMapping("/ToCheck")
-    public List<Product> getProduct_ToCheck() {
-        return productService.getListProduct_ToCheck();
+    public Page<Product> getProduct_ToCheck(@RequestParam(name = "page") int page,
+                                            @RequestParam(name = "size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productService.getPageProduct_ToCheck(pageable);
     }
 
     @GetMapping("/newArrival")
@@ -70,11 +72,28 @@ public class ProductController {
         return productRepository.findAll(pageable);
     }
     @GetMapping("/page-seller")
-
     public Page<Product> getProductPagingOfSeller(@RequestParam(name = "page") int page,
                                                   @RequestParam(name = "size") int size,
                                                   @RequestParam(name = "sellerName") String sellerName) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findProductBySellerName(sellerName,pageable);
+    }
+    @GetMapping("/sort")
+    public Page<Product> getProductPagingSorting(@RequestParam(name = "page") int page,
+                                                  @RequestParam(name = "size") int size,
+                                                  @RequestParam(name = "sort") String sort) {
+        Pageable pageable = PageRequest.of(page, size);
+        if(sort.equalsIgnoreCase("acs")){
+            return productRepository.getProductByOrderByPriceAsc(pageable);
+        }
+        return productRepository.getProductByOrderByPriceDesc(pageable);
+    }
+    @PostMapping("/verify-product/{productId}")
+    public void verifyProduct(@PathVariable("productId") int productId){
+        productService.verifyProduct(productId);
+    }
+    @GetMapping("/count-product/{seller}")
+    public int verifyProduct(@PathVariable("seller") String seller){
+        return productRepository.countProductBySellerName(seller);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @Entity
 @Getter
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int productId;
     private BigDecimal price;
@@ -25,5 +26,9 @@ public class CartItem {
     private String name;
     private int quantity;
     private String sellername;
-
+    private boolean isSelected;
+    public String getFormattedPrice() {
+        DecimalFormat format = new DecimalFormat("#,###.##");
+        return format.format(price);
+    }
 }

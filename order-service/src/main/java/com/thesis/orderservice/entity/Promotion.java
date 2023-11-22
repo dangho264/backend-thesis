@@ -22,9 +22,11 @@ public class Promotion {
     @Column
     private String couponCode;
     @Column
-    private float couponPercent;
+    private double couponPercent;
     @Column
     private Date startDate;
     @Column
     private Date endDate;
+    @Column
+    private String sellerName;
 }

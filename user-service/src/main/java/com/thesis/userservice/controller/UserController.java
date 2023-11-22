@@ -45,6 +45,10 @@ public class UserController {
   public ResponseEntity<UserDto> getInfor(@PathVariable int id) {
     return ResponseEntity.ok(userService.getEmail(id));
   }
+  @GetMapping("/seller/{username}")
+  public ResponseEntity<UserDto> getInforByUsername(@PathVariable String username) {
+    return ResponseEntity.ok(userService.findByUsername(username));
+  }
 
   @GetMapping("/isadmin/{id}")
   public  boolean isAdmin(@PathVariable int id){
@@ -53,7 +57,7 @@ public class UserController {
   @PostMapping("/login")
   public ResponseEntity<UserDto> login(@RequestBody CredentialsDto credentialsDto) {
     UserDto user = userService.login(credentialsDto);
-    user.setToken(userAuthProvider.createToken(user.getUsername()));
+    user.setToken(jwtService.generateToken(user.getUsername()));
 //    user.setToken(jwtService.generateToken(user.getUsername()));
     return ResponseEntity.ok(user);
   }
@@ -79,15 +83,15 @@ public class UserController {
     Optional<User> user = userRepository.findByUsername(violateAccountDTO.getUsername());
     return ResponseEntity.ok(userMapper.toUserDto(user.get()));
   }
-  @GetMapping("/validate")
-  public String validateToken(@RequestParam("token") String token) {
-    jwtService.validateToken(token);
-    return "Token is valid";
-  }
+//  @GetMapping("/validate")
+//  public String validateToken(@RequestParam("token") String token) {
+//    jwtService.validateToken(token);
+//    return "Token is valid";
+//  }
   @GetMapping("/role")
   public Page<User> getUserByRole(@RequestParam(name = "page") int page,
                                      @RequestParam(name = "size") int size,
-                                     @RequestParam("role") int id) {
+                                     @RequestParam(name = "role") int id) {
     Pageable pageable = PageRequest.of(page, size);
     return userService.getUserByRole(id,pageable);
   }

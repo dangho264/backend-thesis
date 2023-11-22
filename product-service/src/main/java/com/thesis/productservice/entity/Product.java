@@ -9,6 +9,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,8 @@ public class Product {
     private boolean status;
     @Column(name="unit_price")
     private BigDecimal price;
+    @Column(name="createdAt")
+    private LocalDateTime createdAt;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

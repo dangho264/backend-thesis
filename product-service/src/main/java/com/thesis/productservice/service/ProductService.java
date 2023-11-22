@@ -6,6 +6,7 @@ import com.thesis.productservice.dto.ProductPutDTO;
 import com.thesis.productservice.entity.*;
 import com.thesis.productservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class ProductService {
         product.setPrice(productDTO.getPrice());
         product.setSellerName(product.getSellerName());
         product.setStatus(false);
+        product.setCreatedAt(LocalDateTime.now());
         Optional<Category> category = categoryRepository.findById(productDTO.getCategory_id());
         // Kiểm tra xem các thông tin Category, Seller, và Artist có hợp lệ không
         if (category.isEmpty()) {
@@ -167,15 +169,9 @@ public class ProductService {
         }
         return products;
     }
-    public List<Product> getListProduct_ToCheck(){
-        List<Product> productFindAll = productRepository.findAll();
-        List<Product> products = new ArrayList<>();
-        for(Product product : productFindAll){
-            if(!product.isStatus()){
-                products.add(product);
-            }
-        }
-        return products;
+    public Page<Product> getPageProduct_ToCheck(Pageable pageable) {
+        // Sử dụng phương thức của repository với Pageable
+        return productRepository.findProductByStatus(false, pageable);
     }
 
     public Product findById(int id){
@@ -183,6 +179,11 @@ public class ProductService {
     }
     public Boolean isExistProduct(int id){
         return productRepository.existsById(id);
+    }
+    public void verifyProduct(int productId){
+        Product product = productRepository.findById(productId);
+        product.setStatus(true);
+        productRepository.save(product);
     }
 }
 

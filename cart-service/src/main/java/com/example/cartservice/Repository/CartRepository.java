@@ -1,6 +1,7 @@
 package com.example.cartservice.Repository;
 
 import com.example.cartservice.Entity.Cart;
+import com.example.cartservice.Entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

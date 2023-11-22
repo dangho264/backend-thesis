@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,4 +25,9 @@ public class UserDto {
   @JsonIgnore
   private List<Role> roles = new ArrayList<>();
   private String role;
+  private String storeName;
+  private LocalDateTime createdAt;
+  private String email;
+  private String phonenumber;
+  private Boolean isActive;
 }

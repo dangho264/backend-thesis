@@ -28,7 +28,7 @@ public class ProductDTO {
     private String released;
     private float weight;
     private String dimensions;
-    Set<String> artistName = new HashSet<>();
+    List<String> artistName = new ArrayList<>();
     public String getFormattedPrice() {
         DecimalFormat format = new DecimalFormat("#,###.##");
         return format.format(price);

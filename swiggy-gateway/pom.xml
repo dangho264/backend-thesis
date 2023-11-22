@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.javatechie</groupId>
 	<artifactId>swiggy-gateway</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>swiggy-gateway</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -90,6 +89,29 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

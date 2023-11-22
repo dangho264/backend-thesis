@@ -13,9 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -47,17 +45,17 @@ public class UserAuthProvider {
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
-    public Authentication validateToken(String token) {
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
-
-        DecodedJWT decoded = verifier.verify(token);
-        UserDto user = userServices.findByUsername(decoded.getSubject());
-
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
-    }
+//    public Authentication validateToken(String token) {
+//        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+//
+//        JWTVerifier verifier = JWT.require(algorithm)
+//                .build();
+//
+//        DecodedJWT decoded = verifier.verify(token);
+//        UserDto user = userServices.findByUsername(decoded.getSubject());
+//
+//        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+//    }
 //    private Key getSignKey() {
 //        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 //        return Keys.hmacShaKeyFor(keyBytes);

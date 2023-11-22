@@ -1,0 +1,146 @@
+version: '1'
+services:
+#  api-gateway:
+#    image: jwt-apigateway-security-main/api-gateway
+#    environment:
+#      EUREKA_URI: http://server:8761/eureka
+#    ports:
+#      - 8762:8762
+
+  server:
+    image: jwt-apigateway-security-main/swiggy-service-registry
+    ports:
+      - 8761:8761
+
+#  email-service:
+#    image: luanvan/email-service
+#    environment:
+#      emailuser: haminhan234@gmail.com
+#      emailpass: 'grod pkgo frgs cble'
+#      EUREKA_URI: http://server:8761/eureka
+#      KAFKA_SERVER: kafka:29092
+#    ports:
+#      - 9009:9009
+#    links:
+#      - kafka
+#
+#  user-service:
+#    image: luanvan/user-service
+#    ports:
+#      - 9003:9003
+#    environment:
+#      EUREKA_URI: http://server:8761/eureka
+#      SQL_HOST: mssqldb
+#      SQL_PASS: Pass12345
+#    links:
+#      - mssqldb
+#
+#  order-service:
+#    image: luanvan/order-service
+#    ports:
+#      - 9007:9007
+#    environment:
+#      KAFKA_SERVER: kafka:29092
+#      EUREKA_URI: http://server:8761/eureka
+#      SQL_HOST: mssqldb
+#      SQL_PASS: Pass12345
+#      APP_HOST: 192.168.1.8
+#      VNP_TIMEOUT: 4000
+#    links:
+#      - kafka
+#      - mssqldb
+#      - server
+#
+#  book-service:
+#    image: luanvan/book-service
+#    ports:
+#      - 9001:9001
+#    environment:
+#      KAFKA_SERVER: kafka:29092
+#      EUREKA_URI: http://server:8761/eureka
+#      SQL_HOST: mssqldb
+#      SQL_PASS: Pass12345
+#    links:
+#      - kafka
+#      - mssqldb
+#      - server
+#
+#  basket-service:
+#    image: luanvan/basket-service
+#    environment:
+#      KAFKA_SERVER: kafka:29092
+#      EUREKA_URI: http://server:8761/eureka
+#      REDIS_HOST: redisDB
+#    ports:
+#      - 9004:9004
+#    links:
+#      - kafka
+#      - redisDB
+#      - server
+
+  redisDB:
+    image: redis
+    ports:
+      - 6379:6379
+
+  mongoDB:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  mssqldb:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Pass12345
+    # mssql server image isn't available for arm64 architecture, so we use azure-sql instead
+    #    image: mcr.microsoft.com/azure-sql-edge:1.0.4
+    # If you really want to use MS SQL Server, uncomment the following line
+    image: mssql-db
+    ports:
+      - "1433:1433"
+
+  #  front-end:
+  #    image: luanvan/ui-luanvan
+  #    ports:
+  #      - 3000:80
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    restart: always
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#
+#  grafana:
+#    image: grafana/grafana
+#    ports:
+#      - 3100:3000
+#    container_name: grafana
+#
+#  prometheus:
+#    image: prom/prometheus
+#    ports:
+#      - "9090:9090"
+#    volumes:
+#      - E:\LuanVan\backend\LuanVan\microservice\prometheus\prometheus.yaml:/etc/prometheus/prometheus.yml
+
+networks:
+  default:
+    name: ma_microservices
+    driver: bridge

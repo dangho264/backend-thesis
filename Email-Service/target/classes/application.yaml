@@ -1,6 +1,14 @@
 spring:
   application:
     name: mail-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+    consumer:
+      boostrap-servers: localhost:29092
 server:
   port: 9008
 eureka:
@@ -9,3 +17,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     preferIpAddress: true
+config:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: quangdang2212@gmail.com
+    password: bbavvajqylrojick

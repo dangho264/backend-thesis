@@ -18,5 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Page<Product> findAll(Pageable pageable);
 //    List<Product> findProductBySellerName(String name);
     Page<Product> findProductBySellerName(String name, Pageable pageable);
-
+    Page<Product> findProductByStatus(Boolean value, Pageable pageable);
+    Page<Product> getProductByOrderByPriceAsc(Pageable pageable);
+    Page<Product> getProductByOrderByPriceDesc(Pageable pageable);
+    public int countProductBySellerName(String sellerName);
 }

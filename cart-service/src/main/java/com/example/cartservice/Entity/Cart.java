@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisHash;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,4 +25,8 @@ public class Cart implements Serializable {
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<CartItem> cartItems = new HashSet<>();
+    public String getFormattedPrice() {
+        DecimalFormat format = new DecimalFormat("#,###.##");
+        return format.format(totalPrice);
+    }
 }

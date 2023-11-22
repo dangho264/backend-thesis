@@ -7,13 +7,16 @@ import com.thesis.orderservice.entity.Promotion;
 import com.thesis.orderservice.repository.PromotionRepository;
 import com.thesis.orderservice.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/promotion")
+@RequestMapping("/order/promotion")
 @CrossOrigin
 public class PromotionController {
     @Autowired
@@ -30,7 +33,14 @@ public class PromotionController {
         return ResponseEntity.ok(promotionRepository.findAll());
     }
     @GetMapping("/{couponCode}")
-    public float validCouponCode(@PathVariable String couponCode) {
+    public double validCouponCode(@PathVariable String couponCode) {
         return promotionService.validCouponCode(couponCode);
+    }
+    @GetMapping("/getPromotion")
+    public Page<Promotion> getPromotionByUsername(@RequestParam(name = "page") int page,
+                                                  @RequestParam(name = "size") int size,
+                                                  @RequestParam(name = "username") String username) {
+        Pageable pageable = PageRequest.of(page, size);
+        return promotionService.getPromotionByUsername(username, pageable);
     }
 }
