@@ -17,12 +17,14 @@ import java.util.Map;
 @Configuration
 @EnableKafka
 public class KafkaConfig {
+    @Value("${spring.kafka.consumer.bootstrap-servers}")
+    private String kafkaHost;
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "localhost:29092");
+                kafkaHost);
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
                 "add-to-cart");

@@ -96,4 +96,15 @@ public class ProductController {
     public int verifyProduct(@PathVariable("seller") String seller){
         return productRepository.countProductBySellerName(seller);
     }
+    @GetMapping("/search")
+    public Page<Product> searchProductByKeyword(@RequestParam(name = "page") int page,
+                                                @RequestParam(name = "size") int size,
+                                                @RequestParam(name="keyword") String keyword){
+        Pageable pageable = PageRequest.of(page, size);
+        return productService.getPageProductByKeyword(keyword,pageable);
+    }
+    @GetMapping("/product-to-revenue/{seller}")
+    public List<Product> getProductBySeller(@PathVariable("seller") String seller){
+        return productRepository.findProductBySellerName(seller);
+    }
 }

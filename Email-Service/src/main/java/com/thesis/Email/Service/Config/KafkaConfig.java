@@ -1,6 +1,7 @@
 package com.thesis.Email.Service.Config;
 
 import com.thesis.Email.Service.Model.MailOrder;
+import com.thesis.Email.Service.Model.MailUser;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class KafkaConfig {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String kafkaHost;
+
     @Bean
     public ConsumerFactory<String, MailOrder> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
@@ -41,6 +43,24 @@ public class KafkaConfig {
     }
 
     @Bean
+    public ConsumerFactory<String, MailUser> consumerFactory1() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                kafkaHost);
+        props.put(
+                ConsumerConfig.GROUP_ID_CONFIG,
+                "sendmail-disable");
+        props.put(
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
+        props.put(
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(JsonDeserializer.TYPE_MAPPINGS, "MailUser:com.thesis.Email.Service.Model.MailUser");
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
+
+    @Bean
     @LoadBalanced
     public ConcurrentKafkaListenerContainerFactory<String, MailOrder>
     kafkaListenerContainerFactory() {
@@ -48,6 +68,17 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, MailOrder> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        return factory;
+    }
+
+    @Bean
+    @LoadBalanced
+    public ConcurrentKafkaListenerContainerFactory<String, MailUser>
+    kafkaListenerContainerFactory1() {
+
+        ConcurrentKafkaListenerContainerFactory<String, MailUser> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory1());
         return factory;
     }
 }

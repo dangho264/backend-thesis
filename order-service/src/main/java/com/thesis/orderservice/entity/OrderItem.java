@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Set;
 
 @Entity
@@ -31,4 +32,8 @@ public class OrderItem {
     @JoinColumn(name = "orderId")
     @JsonBackReference
     private Order orderId;
+    public String getFormattedPrice() {
+        DecimalFormat format = new DecimalFormat("#,###.##");
+        return format.format(price);
+    }
 }

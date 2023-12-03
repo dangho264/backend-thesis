@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ public class OrderService {
     public List<Order> getListOrder() {
         return orderRepository.findAll();
     }
+
     public Order findOrderById(long id) {
         return orderRepository.findByOrderId(id);
     }
@@ -157,7 +159,7 @@ public class OrderService {
                     .build();
             orderItemRepository.saveAll(orderItems);
             order.setOrderItems(orderItems);
-            toMail.send("order-sendmail",mailOrder);
+            toMail.send("order-sendmail", mailOrder);
 
             // Notify the seller about the order
             toBasket.send("cart-to-order", order.getUsername());
@@ -186,9 +188,11 @@ public class OrderService {
     public List<Order> findOrderByUsername(String username) {
         return orderRepository.findAllByUsername(username);
     }
-    public Page<Order> getOrderByUsername(String username, Pageable pageable){
+
+    public Page<Order> getOrderByUsername(String username, Pageable pageable) {
         return orderRepository.findAllByUsername(username, pageable);
     }
+
     public void updateStatusOrder(long id, int value) {
         Optional<Order> orderOptional = orderRepository.findById(id);
 
@@ -196,7 +200,7 @@ public class OrderService {
             throw new AppException("Không tìm thấy order", HttpStatus.NOT_FOUND);
         }
         Order order = orderOptional.get();
-        if(order.getOrderStatus() == OrderStatus.DELIVERED){
+        if (order.getOrderStatus() == OrderStatus.DELIVERED) {
             throw new AppException("Không thể cập nhật trạng thái giao dịch này", HttpStatus.BAD_REQUEST);
         }
         switch (value) {
@@ -204,9 +208,12 @@ public class OrderService {
                 order.setOrderStatus(OrderStatus.CANCELED);
                 break;
             case 1:
-                order.setOrderStatus(OrderStatus.SHIPPING);
+                order.setOrderStatus(OrderStatus.PENDING);
                 break;
             case 2:
+                order.setOrderStatus(OrderStatus.SHIPPING);
+                break;
+            case 3:
                 order.setOrderStatus(OrderStatus.DELIVERED);
                 order.setPaymentStatus("Paid");
                 break;
@@ -243,48 +250,158 @@ public class OrderService {
         Map<String, BigDecimal> revenueByMonth = new HashMap<>();
 
         // Lấy tất cả đơn hàng từ cơ sở dữ liệu
-        List<Order> allOrders = orderRepository.findAllByUsernameAndOrderStatus(username, OrderStatus.DELIVERED);
+        List<Order> allOrders = orderRepository.findAllByOrderStatus(OrderStatus.DELIVERED);
 
         // Format để lấy tháng từ ngày đặt hàng
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
 
-        for (Order order : allOrders) {
-            // Chuyển đổi LocalDateTime thành String sử dụng DateTimeFormatter
-            String orderDateString = order.getOrderDate().format(formatter);
-
-            // Parse String thành LocalDateTime
-            LocalDateTime orderDate = LocalDateTime.parse(orderDateString, formatter);
-
-            // Tiếp tục xử lý như trước
-            String monthYear = orderDate.getMonth().toString() + " " + orderDate.getYear();
-            revenueByMonth.merge(monthYear, new BigDecimal(order.getTotalPrice().doubleValue()), BigDecimal::add);
+        // Danh sách các tháng và năm trong năm cùng với số thứ tự
+        List<MonthInfo> months = new ArrayList<>();
+        for (int month = 1; month <= 12; month++) {
+            String monthName = Month.of(month).name();
+            months.add(new MonthInfo(monthName, month));
         }
 
-        return revenueByMonth;
+        for (Order order : allOrders) {
+            if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    // Kiểm tra nếu orderItem có sellerName
+                    if (orderItem.getSellername().equalsIgnoreCase(username)) {
+                        String orderDateString = order.getOrderDate().format(formatter);
+
+                        // Parse String thành LocalDateTime
+                        LocalDateTime orderDate = LocalDateTime.parse(orderDateString, formatter);
+
+                        // Tiếp tục xử lý như trước
+                        String monthName = orderDate.getMonth().toString();
+                        revenueByMonth.merge(monthName, new BigDecimal(orderItem.getPrice().doubleValue()), BigDecimal::add);
+                    }
+                }
+            }
+        }
+
+        // Kiểm tra và thêm các tháng còn thiếu với giá trị 0
+        for (MonthInfo month : months) {
+            String monthName = month.getName();
+            if (!revenueByMonth.containsKey(monthName)) {
+                revenueByMonth.put(monthName, BigDecimal.ZERO);
+            }
+        }
+
+        // Sắp xếp lại theo số thứ tự của tháng
+        List<Map.Entry<String, BigDecimal>> sortedList = revenueByMonth.entrySet().stream()
+                .sorted(Comparator.comparingInt(entry -> months.stream()
+                        .filter(monthInfo -> monthInfo.getName().equals(entry.getKey()))
+                        .findFirst()
+                        .map(MonthInfo::getOrder)
+                        .orElse(0)))
+                .collect(Collectors.toList());
+
+        // Chuyển đổi lại thành Map
+        Map<String, BigDecimal> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, BigDecimal> entry : sortedList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
-    public Map<String, BigDecimal> calculateRevenuePendingByMonth(String username, List<OrderStatus> orderStatuses) {
+
+
+    private static class MonthInfo {
+        private final String name;
+        private final int order;
+
+        public MonthInfo(String name, int order) {
+            this.name = name;
+            this.order = order;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getOrder() {
+            return order;
+        }
+    }
+    public Map<String, BigDecimal> calculateRevenuePendingByMonth(String username) {
+        List<OrderStatus> orderStatuses = new ArrayList<>();
         Map<String, BigDecimal> revenueByMonth = new HashMap<>();
         orderStatuses.add(OrderStatus.DELIVERED);
         orderStatuses.add(OrderStatus.CANCELED);
+
         // Lấy tất cả đơn hàng từ cơ sở dữ liệu
-        List<Order> allOrders = orderRepository.findAllByUsernameAndOrderStatusNotIn(username, orderStatuses);
+        List<Order> allOrders = orderRepository.findAllByOrderStatusNotIn(orderStatuses);
 
         // Format để lấy tháng từ ngày đặt hàng
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
 
-        for (Order order : allOrders) {
-            // Chuyển đổi LocalDateTime thành String sử dụng DateTimeFormatter
-            String orderDateString = order.getOrderDate().format(formatter);
-
-            // Parse String thành LocalDateTime
-            LocalDateTime orderDate = LocalDateTime.parse(orderDateString, formatter);
-
-            // Tiếp tục xử lý như trước
-            String monthYear = orderDate.getMonth().toString() + " " + orderDate.getYear();
-            revenueByMonth.merge(monthYear, new BigDecimal(order.getTotalPrice().doubleValue()), BigDecimal::add);
+        // Danh sách các tháng và năm trong năm cùng với số thứ tự
+        List<MonthInfo> months = new ArrayList<>();
+        for (int month = 1; month <= 12; month++) {
+            String monthName = Month.of(month).name();
+            months.add(new MonthInfo(monthName, month));
         }
 
-        return revenueByMonth;
+        for (Order order : allOrders) {
+            if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    // Kiểm tra nếu orderItem có sellerName
+                    if (orderItem.getSellername().equalsIgnoreCase(username)) {
+                        String orderDateString = order.getOrderDate().format(formatter);
+
+                        // Parse String thành LocalDateTime
+                        LocalDateTime orderDate = LocalDateTime.parse(orderDateString, formatter);
+
+                        // Tiếp tục xử lý như trước
+                        String monthName = orderDate.getMonth().toString();
+                        revenueByMonth.merge(monthName, new BigDecimal(orderItem.getPrice().doubleValue()), BigDecimal::add);
+                    }
+                }
+            }
+        }
+
+        // Kiểm tra và thêm các tháng còn thiếu với giá trị 0
+        for (MonthInfo month : months) {
+            String monthName = month.getName();
+            if (!revenueByMonth.containsKey(monthName)) {
+                revenueByMonth.put(monthName, BigDecimal.ZERO);
+            }
+        }
+
+        // Sắp xếp lại theo số thứ tự của tháng
+        List<Map.Entry<String, BigDecimal>> sortedList = revenueByMonth.entrySet().stream()
+                .sorted(Comparator.comparingInt(entry -> months.stream()
+                        .filter(monthInfo -> monthInfo.getName().equals(entry.getKey()))
+                        .findFirst()
+                        .map(MonthInfo::getOrder)
+                        .orElse(0)))
+                .collect(Collectors.toList());
+
+        // Chuyển đổi lại thành Map
+        Map<String, BigDecimal> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, BigDecimal> entry : sortedList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+    public BigDecimal calculateProductRevenue(int productId, String username) {
+        List<Order> allOrders = orderRepository.findAll();
+
+        BigDecimal totalRevenue = BigDecimal.ZERO;
+
+        for (Order order : allOrders) {
+            if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    if (orderItem.getProductId()==productId && orderItem.getSellername().equalsIgnoreCase(username)) {
+                        totalRevenue = totalRevenue.add(orderItem.getPrice());
+                    }
+                }
+            }
+        }
+
+        return totalRevenue;
     }
     public void testKafka(String name) {
         toBasket.send("cart-order", name);

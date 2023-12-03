@@ -9,6 +9,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+    consumer:
+      bootstrap-servers: localhost:29092
 server:
   port: 9003
 eureka:
@@ -17,3 +22,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     preferIpAddress: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus

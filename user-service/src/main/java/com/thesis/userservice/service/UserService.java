@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,8 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private ViolateRepository violateRepository;
+    @Autowired
+    private KafkaTemplate<String, MailUser> toMailDisable;
     public UserDto findByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
@@ -97,6 +100,12 @@ public class UserService {
     }
     public void disableAccount(ViolateAccountDTO violateAccountDTO){
         User user = userRepository.findByUsername(violateAccountDTO.getUsername()).orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        MailUser mailUser = new MailUser();
+        mailUser.setName(user.getName());
+        mailUser.setEmail(user.getEmail());
+        mailUser.setStoreName(user.getStoreName());
+        mailUser.setUsername(user.getUsername());
+        mailUser.setViolate(violateAccountDTO.getReason());
         if(user.isActive()){
             user.setActive(false);
             Violate violate = new Violate();
@@ -108,6 +117,7 @@ public class UserService {
             violateList.add(violate);
             user.setViolates(violateList);
         }
+        toMailDisable.send("disable-user-mail",mailUser);
     }
     public Page<User> getUserByRole(int id, Pageable pageable){
         Optional<Role> role = roleRepository.findById(id);

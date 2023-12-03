@@ -1,6 +1,7 @@
 package com.thesis.Email.Service.Service;
 
 import com.thesis.Email.Service.Model.MailOrder;
+import com.thesis.Email.Service.Model.MailUser;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -10,15 +11,12 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-
 @Service
 public class ThymeleafService {
     private static final String MAIL_TEMPLATE_BASE_NAME = "mail/MailMessages";
     private static final String MAIL_TEMPLATE_PREFIX = "/templates/";
     private static final String MAIL_TEMPLATE_SUFFIX = ".html";
     private static final String UTF_8 = "UTF-8";
-
-    private static final String TEMPLATE_NAME = "mail-template";
 
     private static TemplateEngine templateEngine;
 
@@ -49,9 +47,9 @@ public class ThymeleafService {
         return templateResolver;
     }
 
-    public String getContent(MailOrder order) {
+    // Updated method to accept template name dynamically
+    public String getContent(MailOrder order, String templateName) {
         final Context context = new Context();
-//        order.setOrderItems(orderItem);
         context.setVariable("First", order.getFirstName());
         context.setVariable("Last", order.getLastName());
         context.setVariable("Phone", order.getPhoneNumber());
@@ -59,6 +57,15 @@ public class ThymeleafService {
         context.setVariable("address", order.getShippingAddress());
         context.setVariable("orderItems", order.getOrderItems());
 
-        return templateEngine.process(TEMPLATE_NAME, context);
+        return templateEngine.process(templateName, context);
+    }
+    public String getContentDisable(MailUser mailUser, String templateName) {
+        final Context context = new Context();
+        context.setVariable("name",mailUser.getName());
+        context.setVariable("username", mailUser.getUsername());
+        context.setVariable("storeName", mailUser.getStoreName());
+        context.setVariable("violate", mailUser.getViolate());
+
+        return templateEngine.process(templateName, context);
     }
 }

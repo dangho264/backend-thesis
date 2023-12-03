@@ -2,22 +2,6 @@ spring:
  cloud:
    gateway:
      routes:
-       - id: swiggy-app
-         uri: lb://SWIGGY-APP
-         predicates:
-           - Path=/swiggy/**
-         filters:
-           - AuthenticationFilter
-       - id: restaurant-service
-         uri: lb://RESTAURANT-SERVICE
-         predicates:
-           - Path=/restaurant/**
-         filters:
-           - AuthenticationFilter
-       - id: identity-service
-         uri: lb://IDENTITY-SERVICE
-         predicates:
-           - Path=/auth/**
        - id: user-service
          uri: lb://USER-SERVICE
          predicates:
@@ -59,4 +43,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone : http://${EUREKA_SERVICE_URL:192.168.1.138}:8761/eureka/
+      defaultZone : http://${EUREKA_SERVICE_URL:192.168.110.48}:8761/eureka/

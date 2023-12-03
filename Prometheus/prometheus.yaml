@@ -1,0 +1,23 @@
+scrape_configs:
+  - job_name: 'Spring Boot Application input'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: ['order-service:9007']
+        labels:
+          application: 'My order service'
+      - targets: [ '192.168.110.48:9003' ]
+        labels:
+          application: 'My user service'
+      - targets: [ 'email-service:9008' ]
+        labels:
+          application: 'My email service'
+      - targets: [ 'product-service:9004' ]
+        labels:
+          application: 'My product service'
+      - targets: [ 'cart-service:9006' ]
+        labels:
+          application: 'My cart service'
+      - targets: [ 'server:8761' ]
+        labels:
+          application: 'My server'

@@ -13,18 +13,22 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-//    @Value("${spring.redis.host}")
-//    private String redisHost;
-//
-//    @Value("${spring.redis.port}")
-//    private int redisPort;
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private int redisPort;
 
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory();
-    }
-
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory() {
+//        return new LettuceConnectionFactory();
+//    }
+@Bean
+public LettuceConnectionFactory redisConnectionFactory() {
+    // Tạo Standalone Connection tới Redis
+    return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
+}
     @Bean
     @Primary
     public RedisTemplate<String, Object> redisTemplate() {

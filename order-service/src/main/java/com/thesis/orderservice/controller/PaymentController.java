@@ -1,6 +1,10 @@
 package com.thesis.orderservice.controller;
 
+import com.stripe.exception.StripeException;
+import com.stripe.model.checkout.Session;
 import com.thesis.orderservice.config.VNPayConfig;
+import com.thesis.orderservice.service.StripeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -13,7 +17,12 @@ import java.util.*;
 @RequestMapping("/order/payment")
 @CrossOrigin
 public class PaymentController {
-
+    @Autowired
+    private StripeService stripeService;
+    @PostMapping("/create-session")
+    public Session createCheckoutSession() throws StripeException {
+        return stripeService.createCheckoutSession();
+    }
     @GetMapping("/VNPay/{price}")
     public String getPay(@PathVariable(name = "price") long price) throws UnsupportedEncodingException{
 

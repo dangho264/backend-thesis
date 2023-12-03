@@ -48,6 +48,15 @@ public class OrderController {
     public ResponseEntity<Map<String, BigDecimal>> getRevenueByMonth(@PathVariable(name="username") String username){
         return ResponseEntity.ok(orderService.calculateRevenueByMonth(username));
     }
+    @GetMapping("/revenue-pending/{username}")
+    public ResponseEntity<Map<String, BigDecimal>> getRevenuePendingByMonth(@PathVariable(name="username") String username){
+        return ResponseEntity.ok(orderService.calculateRevenuePendingByMonth(username));
+    }
+    @GetMapping("/revenue-product/")
+    public ResponseEntity<BigDecimal> getRevenuePendingByproduct(@RequestParam(name = "username") String username,
+                                                                 @RequestParam(name = "productId") int productId){
+        return ResponseEntity.ok(orderService.calculateProductRevenue(productId,username));
+    }
     @GetMapping("/status/")
     public Page<Order> getOrderByStatus(@RequestParam(name = "page") int page,
                                         @RequestParam(name = "size") int size,

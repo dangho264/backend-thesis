@@ -23,6 +23,8 @@ public class ProductService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
+    private TypeProductRepository typeProductRepository;
+    @Autowired
     private ArtistRepository artistRepository;
     @Autowired
     private DetailPDRepository detailPDRepository;
@@ -48,9 +50,9 @@ public class ProductService {
             throw new RuntimeException("Category không hợp lệ.");
         }
         product.setCategory(category.get());
-        if(productDTO.getQuantity() > 0){
-            product.setStatus(true);
-        }
+//        if(productDTO.getQuantity() > 0){
+//            product.setStatus(true);
+//        }
 
         // Lưu sản phẩm vào cơ sở dữ liệu
         productRepository.save(product);
@@ -173,7 +175,17 @@ public class ProductService {
         // Sử dụng phương thức của repository với Pageable
         return productRepository.findProductByStatus(false, pageable);
     }
-
+    public Page<Product> getPageProductByKeyword(String keyword, Pageable pageable){
+        return productRepository.findByNameIgnoreCaseContaining(keyword,pageable);
+    }
+    public Page<Product> getProductByCategory(int id, Pageable pageable){
+        Optional<Category> category = categoryRepository.findById(id);
+        return productRepository.findProductByCategory(category.get(),pageable);
+    }
+    public Page<Product> getProductByType(int id, Pageable pageable){
+        Optional<TypeProduct> typeProduct = typeProductRepository.findById(id);
+        return productRepository.findProductByType(typeProduct.get(),pageable);
+    }
     public Product findById(int id){
         return productRepository.findById(id);
     }
